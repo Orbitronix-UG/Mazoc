@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mazoc - Financial Calculator & Unit Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Space Grotesk', sans-serif;
+          line-height: 1.6;
+          color: #333;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+      }
+
+      .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      /* Navigation */
+      .nav {
+          background: white;
+          border-radius: 20px;
+          padding: 20px 30px;
+          margin-bottom: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+
+      .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+      }
+
+      .nav-logo {
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
+          background: #00BFA6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 15px rgba(0, 191, 166, 0.3);
+      }
+
+      .nav-logo svg {
+          width: 30px;
+          height: 30px;
+      }
+
+      .nav-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #333;
+      }
+
+      .nav-links {
+          display: flex;
+          gap: 20px;
+          align-items: center;
+      }
+
+      .nav-link {
+          text-decoration: none;
+          color: #666;
+          font-weight: 500;
+          padding: 10px 20px;
+          border-radius: 10px;
+          transition: all 0.3s ease;
+      }
+
+      .nav-link:hover {
+          background: #f0f0f0;
+          color: #00BFA6;
+      }
+
+      .nav-link.active {
+          background: #00BFA6;
+          color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+          text-align: center;
+          background: white;
+          border-radius: 20px;
+          padding: 60px 30px;
+          margin-bottom: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .app-icon {
+          width: 120px;
+          height: 120px;
+          margin: 0 auto 30px;
+          border-radius: 25px;
+          background: #00BFA6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 15px 40px rgba(0, 191, 166, 0.4);
+      }
+
+      .app-icon svg {
+          width: 70px;
+          height: 70px;
+      }
+
+      .app-name {
+          font-size: 3.5rem;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 15px;
+      }
+
+      .subtitle {
+          font-size: 1.4rem;
+          color: #666;
+          font-weight: 400;
+          margin-bottom: 30px;
+      }
+
+      .hero-description {
+          font-size: 1.1rem;
+          color: #555;
+          max-width: 600px;
+          margin: 0 auto 40px;
+      }
+
+      .cta-buttons {
+          display: flex;
+          gap: 20px;
+          justify-content: center;
+          flex-wrap: wrap;
+      }
+
+      .cta-button {
+          padding: 15px 30px;
+          border-radius: 15px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+      }
+
+      .cta-primary {
+          background: #00BFA6;
+          color: white;
+          box-shadow: 0 8px 25px rgba(0, 191, 166, 0.3);
+      }
+
+      .cta-primary:hover {
+          background: #00D4B4;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 35px rgba(0, 191, 166, 0.4);
+      }
+
+      .cta-secondary {
+          background: white;
+          color: #00BFA6;
+          border: 2px solid #00BFA6;
+      }
+
+      .cta-secondary:hover {
+          background: #00BFA6;
+          color: white;
+          transform: translateY(-2px);
+      }
+
+      /* Content Sections */
+      .content {
+          background: white;
+          border-radius: 20px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          margin-bottom: 30px;
+      }
+
+      h1 {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 30px;
+          text-align: center;
+      }
+
+      h2 {
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: #00BFA6;
+          margin: 40px 0 20px 0;
+          border-bottom: 2px solid #f0f0f0;
+          padding-bottom: 10px;
+      }
+
+      h3 {
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: #555;
+          margin: 25px 0 15px 0;
+      }
+
+      p {
+          margin-bottom: 15px;
+          font-size: 1.1rem;
+          font-weight: 400;
+          color: #555;
+      }
+
+      ul {
+          margin: 15px 0;
+          padding-left: 30px;
+      }
+
+      li {
+          margin-bottom: 10px;
+          font-size: 1.1rem;
+          font-weight: 400;
+          color: #555;
+      }
+
+      .highlight {
+          background: linear-gradient(135deg, #00BFA6, #00D4B4);
+          color: white;
+          padding: 25px;
+          border-radius: 15px;
+          margin: 25px 0;
+          font-weight: 500;
+          font-size: 1.1rem;
+      }
+
+      .features-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 30px;
+          margin: 40px 0;
+      }
+
+      .feature-card {
+          background: #f8f9fa;
+          padding: 30px;
+          border-radius: 15px;
+          border-left: 4px solid #00BFA6;
+          transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+          transform: translateY(-5px);
+      }
+
+      .feature-icon {
+          width: 60px;
+          height: 60px;
+          background: #00BFA6;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          color: white;
+          font-size: 1.5rem;
+      }
+
+      .contact-info {
+          background: #f8f9fa;
+          padding: 25px;
+          border-radius: 15px;
+          margin: 25px 0;
+          border-left: 4px solid #00BFA6;
+      }
+
+      .footer {
+          text-align: center;
+          margin-top: 40px;
+          padding: 20px;
+          color: white;
+          font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+          .container {
+              padding: 15px;
+          }
+
+          .nav {
+              flex-direction: column;
+              gap: 20px;
+              text-align: center;
+          }
+
+          .nav-links {
+              flex-direction: column;
+              gap: 10px;
+          }
+
+          .hero {
+              padding: 40px 20px;
+          }
+
+          .content {
+              padding: 30px 20px;
+          }
+
+          .app-name {
+              font-size: 2.5rem;
+          }
+
+          h1 {
+              font-size: 2rem;
+          }
+
+          .cta-buttons {
+              flex-direction: column;
+              align-items: center;
+          }
+
+          .features-grid {
+              grid-template-columns: 1fr;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Navigation -->
+      <nav class="nav">
+        <div class="nav-brand">
+          <div class="nav-logo">
+            <svg
+              width="1024"
+              height="1024"
+              viewBox="0 0 1024 1024"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="1024" height="1024" fill="#00BFA6" />
+              <path
+                d="M307 717V307L512 614.5L717 307V717"
+                stroke="white"
+                stroke-width="100"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="nav-title">Mazoc</div>
+        </div>
+        <div class="nav-links">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="app-icon">
+          <svg
+            width="1024"
+            height="1024"
+            viewBox="0 0 1024 1024"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="1024" height="1024" fill="#00BFA6" />
+            <path
+              d="M307 717V307L512 614.5L717 307V717"
+              stroke="white"
+              stroke-width="100"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="app-name">Mazoc</div>
+        <div class="subtitle">Financial Calculator & Unit Converter</div>
+        <p class="hero-description">
+          Your all-in-one solution for financial calculations and unit
+          conversions. Built with privacy-first design, your data stays on your
+          device.
+        </p>
+        <div class="cta-buttons">
+          <a href="#download" class="cta-button cta-primary">Coming Soon</a>
+          <a href="#about" class="cta-button cta-secondary">Learn More</a>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="content">
+        <h1>About Mazoc</h1>
+
+        <div class="highlight">
+          Mazoc is a comprehensive financial calculator and unit converter
+          designed with your privacy and convenience in mind. Whether you're
+          planning investments, calculating loans, or converting units, Mazoc
+          has you covered.
+        </div>
+
+        <h2>What is Mazoc?</h2>
+        <p>
+          Mazoc is a powerful mobile application that combines essential
+          financial calculators with a comprehensive unit converter. Our app is
+          designed to be your go-to tool for all your calculation needs, from
+          simple arithmetic to complex financial planning.
+        </p>
+
+        <h2>Our Mission</h2>
+        <p>
+          We believe that financial tools should be accessible, accurate, and
+          respectful of your privacy. That's why we've built Mazoc with a
+          privacy-first approach - your calculations and data never leave your
+          device.
+        </p>
+
+        <h2>Key Principles</h2>
+        <ul>
+          <li>
+            <strong>Privacy First:</strong> All calculations are performed
+            locally on your device
+          </li>
+          <li>
+            <strong>Accuracy:</strong> Precise calculations for all financial
+            and conversion needs
+          </li>
+          <li>
+            <strong>Simplicity:</strong> Clean, intuitive interface that's easy
+            to use
+          </li>
+          <li>
+            <strong>Comprehensive:</strong> Wide range of calculators and unit
+            conversions
+          </li>
+          <li>
+            <strong>Reliable:</strong> Consistent performance across all devices
+          </li>
+        </ul>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="content">
+        <h1>Features</h1>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Financial Calculators</h3>
+            <p>
+              Comprehensive suite of financial calculators including loan
+              calculators, investment calculators, mortgage calculators, and
+              more to help you make informed financial decisions.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Unit Converter</h3>
+            <p>
+              Convert between hundreds of units across categories like length,
+              weight, temperature, currency, and more with precision and ease.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Privacy Protected</h3>
+            <p>
+              Your data never leaves your device. All calculations are performed
+              locally, ensuring your financial information remains completely
+              private.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Cross-Platform</h3>
+            <p>
+              Available on both iOS and Android devices with a consistent,
+              user-friendly interface optimized for mobile use.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast & Efficient</h3>
+            <p>
+              Lightning-fast calculations with an optimized interface that gets
+              you the results you need quickly and efficiently.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Modern Design</h3>
+            <p>
+              Clean, modern interface with intuitive navigation and beautiful
+              visual design that makes calculations enjoyable.
+            </p>
+          </div>
+        </div>
+
+        <h2>Financial Calculators Include:</h2>
+        <ul>
+          <li>Loan Calculator (EMI, Interest, Principal)</li>
+          <li>Investment Calculator (Compound Interest, SIP)</li>
+          <li>Mortgage Calculator</li>
+          <li>Credit Card EMI Calculator</li>
+          <li>FD (Fixed Deposit) Calculator</li>
+          <li>RD (Recurring Deposit) Calculator</li>
+          <li>GST Calculator</li>
+          <li>Income Tax Calculator</li>
+          <li>Currency Converter</li>
+          <li>Percentage Calculator</li>
+        </ul>
+
+        <h2>Unit Conversions Include:</h2>
+        <ul>
+          <li>Length (meters, feet, inches, miles, kilometers)</li>
+          <li>Weight (kg, pounds, ounces, grams)</li>
+          <li>Temperature (Celsius, Fahrenheit, Kelvin)</li>
+          <li>Area (square meters, square feet, acres)</li>
+          <li>Volume (liters, gallons, cubic meters)</li>
+          <li>Speed (km/h, mph, m/s)</li>
+          <li>Time (seconds, minutes, hours, days)</li>
+          <li>Digital Storage (bytes, KB, MB, GB)</li>
+          <li>Energy (joules, calories, kilowatt-hours)</li>
+          <li>And many more categories</li>
+        </ul>
+      </section>
+
+      <!-- Download Section -->
+      <section id="download" class="content">
+        <h1>Download Mazoc</h1>
+
+        <div class="highlight">
+          Get Mazoc today and experience the most comprehensive financial
+          calculator and unit converter with complete privacy protection.
+        </div>
+
+        <div
+          class="cta-buttons"
+          style="justify-content: center; margin-top: 30px;"
+        >
+          <a href="#" class="cta-button cta-primary">Coming Soon for iOS</a>
+          <a href="#" class="cta-button cta-primary">Coming Soon for Android</a>
+        </div>
+
+        <div class="contact-info">
+          <h3>Need Help?</h3>
+          <p>If you have any questions or need support, we're here to help:</p>
+          <ul>
+            <li>Email: orbitronix.ug@gmail.app</li>
+            <li>App Support: orbitronix.ug@gmail.app</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="footer">
+        <p style="color: white;">&copy; 2025 Mazoc. All rights reserved.</p>
+        <p style="color: white;">
+          Empowering financial decisions with privacy-first design.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
